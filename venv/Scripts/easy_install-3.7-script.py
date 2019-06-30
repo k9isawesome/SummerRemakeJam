@@ -1,4 +1,4 @@
-#!C:\Users\Jason\Desktop\pygame\venv\Scripts\python.exe
+#!C:\Users\Jason\Desktop\SummerRemakeJam\venv\Scripts\python.exe
 # EASY-INSTALL-ENTRY-SCRIPT: 'setuptools==28.8.0','console_scripts','easy_install-3.7'
 __requires__ = 'setuptools==28.8.0'
 import re

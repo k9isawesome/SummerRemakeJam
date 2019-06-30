@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Jason\Desktop\pygame\venv"
+VIRTUAL_ENV="C:\Users\Jason\Desktop\SummerRemakeJam\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
