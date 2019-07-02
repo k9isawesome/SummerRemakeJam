@@ -3,10 +3,10 @@ import pygame
 import random
 
 # gravity value
-gravity = 20
+gravity = 2
 
 # move_speed value
-move_speed = 1
+move_speed = 5
 
 def load_images():
     image_dict = {}
@@ -14,6 +14,11 @@ def load_images():
     image_dict['grass_top_rock'] = pygame.image.load("assets/grass/GrassTopRock.png").convert_alpha()
     image_dict['trainer'] = pygame.image.load("assets/trainer.png").convert_alpha()
     image_dict['bg'] = pygame.image.load("assets/bg.png").convert_alpha()
+    image_dict['short_grass_1'] = pygame.image.load("assets/shortGrass/shortGrass1.png").convert_alpha()
+    image_dict['short_grass_2'] = pygame.image.load("assets/shortGrass/shortGrass2.png").convert_alpha()
+    image_dict['short_grass_3'] = pygame.image.load("assets/shortGrass/shortGrass3.png").convert_alpha()
+    image_dict['short_grass_4'] = pygame.image.load("assets/shortGrass/shortGrass4.png").convert_alpha()
+    image_dict['short_grass_5'] = pygame.image.load("assets/shortGrass/shortGrass5.png").convert_alpha()
     return image_dict
 
 
@@ -21,6 +26,11 @@ def draw_foreground(screen, image_dict):
 
     grass_top = image_dict['grass_top']
     grass_top_rock = image_dict['grass_top_rock']
+    short_grass_1 = image_dict['short_grass_1']
+    short_grass_2 = image_dict['short_grass_2']
+    short_grass_3 = image_dict['short_grass_3']
+    short_grass_4 = image_dict['short_grass_4']
+    short_grass_5 = image_dict['short_grass_5']
 
     # draw grass blocks and update screen
     for i in range(0, 241, 16):
@@ -28,6 +38,18 @@ def draw_foreground(screen, image_dict):
             screen.blit(grass_top_rock, (i, 164))
         else:
             screen.blit(grass_top, (i, 164))
+        if random.randint(0,2) == 0:
+            random_grass = random.randint(0,4)
+            if random_grass == 0:
+                screen.blit(short_grass_1, (i, 148))
+            elif random_grass == 1:
+                screen.blit(short_grass_2, (i, 148))
+            elif random_grass == 2:
+                screen.blit(short_grass_3, (i, 148))
+            elif random_grass == 3:
+                screen.blit(short_grass_4, (i, 148))
+            elif random_grass == 4:
+                screen.blit(short_grass_5, (i, 148))
     pygame.display.update()
 
 # define a main function
@@ -58,6 +80,12 @@ def main():
     trainer_pos_x = 0
     trainer_pos_y = 0
 
+    # initialize trainer vertical velocity
+    trainer_velocity_y = 0
+
+    # initiazlie trainer in air status
+    trainer_in_air = True
+
     # define a variable to control the main loop
     running = True
 
@@ -82,11 +110,21 @@ def main():
             trainer_pos_x += move_speed
         if keys[pygame.K_a]:
             trainer_pos_x -= move_speed
+        if keys[pygame.K_w]:
+            if not trainer_in_air:
+                trainer_velocity_y = -10
 
         # apply gravity to trainer position
-        trainer_pos_y += gravity
+        trainer_pos_y += trainer_velocity_y
+
+        if trainer_in_air:
+            trainer_velocity_y += gravity
+
         if trainer_pos_y > 132:
+            trainer_in_air = False
             trainer_pos_y = 132
+        else:
+            trainer_in_air = True
 
         # draw new trainer position
         screen.blit(image_dict['trainer'], (trainer_pos_x, trainer_pos_y))
