@@ -62,7 +62,7 @@ def main():
     pygame.display.set_caption("test program")
 
     # create a surface on screen that has the size of 240 x 180
-    screen = pygame.display.set_mode((240, 180))
+    screen = pygame.display.set_mode((480, 360))
 
     # set up clock for stable framerate
     clock = pygame.time.Clock()
